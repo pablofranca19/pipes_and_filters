@@ -49,7 +49,7 @@ public class Validator implements Process<String, List<String>>  {
         return validatedLogs;
     }
 
-
+    // only meant for testing (yes, outside of junit, just for a while)
     static void main() {
         String log = "192.168.1.1 - - [10/Mar/2026:02:18:02] \"POST /login HTTP/1.1\" 301 0";
         String ip = "192.168.1.1";
