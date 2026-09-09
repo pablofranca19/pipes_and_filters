@@ -1,6 +1,5 @@
-package filtering;
+package model;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Log {
