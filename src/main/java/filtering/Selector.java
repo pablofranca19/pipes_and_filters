@@ -1,6 +1,7 @@
 package filtering;
 
 import filtering.process.Process;
+import model.Log;
 
 import java.util.ArrayList;
 import java.util.List;

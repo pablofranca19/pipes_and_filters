@@ -1,6 +1,7 @@
 package filtering;
 
 import filtering.process.Process;
+import model.Log;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
