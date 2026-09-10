@@ -13,14 +13,7 @@ import java.util.List;
 
 public class Anonymizer implements Process<List<Log>, List<Log>> {
 
-    private List<Log> logList;
     private static final String ALGORITHM = "HmacSHA256";
-
-
-    public Anonymizer(List<Log> logList) {
-        this.logList = logList;
-        process(this.logList);
-    }
 
     @Override
     public List<Log> process(List<Log> data) {
@@ -43,15 +36,12 @@ public class Anonymizer implements Process<List<Log>, List<Log>> {
 
             final String secretKey = "is-it-necessary-any-key";
 
-            // Create a new Mac instance using HMAC-SHA256
             Mac mac = Mac.getInstance(ALGORITHM);
             SecretKeySpec keySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), ALGORITHM);
             mac.init(keySpec);
 
-            // Generate the HMAC hash
         byte[] hmac = mac.doFinal(ip.getBytes(StandardCharsets.UTF_8));
 
-            // return it already encoded
         return Base64.getEncoder().encodeToString(hmac);
     }
 
