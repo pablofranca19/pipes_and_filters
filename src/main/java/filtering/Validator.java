@@ -20,16 +20,8 @@ public class Validator implements Process<String, List<String>>  {
     private static final String HTTP_VERSION_REGEX = "HTTP/\\d\\.\\d";
     private static final String STATUS_CODE_REGEX = "\\d{3}";
     private static final String BYTE_LENGTH_REGEX = "\\d+";
-
     // StringBuilder for this
     private static final String LOG_REGEX = "^" + IP_REGEX + "\\s-\\s-\\s" + "\\[" + DATE_REGEX + "\\]" + "\\s" + "\"" +  HTTP_REQUEST_REGEX + "\\s" + ENDPOINT_REGEX + "\\s" + HTTP_VERSION_REGEX + "\"" + "\\s" + STATUS_CODE_REGEX + "\\s" + BYTE_LENGTH_REGEX + "$";
-
-   private final String path;
-
-    public Validator(String path) {
-        this.path = path;
-        process(this.path);
-    }
 
     @Override
     public List<String> process(String path) {
@@ -50,6 +42,7 @@ public class Validator implements Process<String, List<String>>  {
     }
 
     // only meant for testing (yes, outside of junit, just for a while)
+    /*
     static void main() {
         String log = "192.168.1.1 - - [10/Mar/2026:02:18:02] \"POST /login HTTP/1.1\" 301 0";
         String ip = "192.168.1.1";
@@ -70,5 +63,6 @@ public class Validator implements Process<String, List<String>>  {
         System.out.println("Byte length test: " + byteLen.matches(BYTE_LENGTH_REGEX));
 
     }
+     */
 
 }
