@@ -34,12 +34,14 @@ public class Formatter implements Process<List<Log>, String> {
         try (BufferedWriter bufferedWriter = new BufferedWriter(Files.newBufferedWriter(outputPath))) {
             for (Log log : data) {
                 df.parse(log.getDate());
-                objectMapper.writeValue(bufferedWriter, new LogRegistry(data)); // I found the bug, get this claude
-                bufferedWriter.newLine();
+                // objectMapper.writeValue(bufferedWriter, new LogRegistry(data)); I found this bug, not you, claude!!
             }
+
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(bufferedWriter, new LogRegistry(data));
+
         } catch (ParseException e) {
             System.out.println("Error parsing the logs.");
-            throw new RuntimeException(e);
+            throw new RuntimeException("Couldn't parse the date, check if the expected field is correct");
         } catch (IOException e) {
             System.out.println("Error writing to \"target/output/logs.json\" path.");
             throw new RuntimeException(e);
