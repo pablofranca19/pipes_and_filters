@@ -1,15 +1,31 @@
 package application;
 
-import java.util.Scanner;
+import filtering.Anonymizer;
+import filtering.Formatter;
+import filtering.Selector;
+import filtering.Validator;
+import filtering.process.Process;
+import model.Log;
 
-public class Main {
-    static void main() {
+import java.util.List;
 
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Insert your file directory location: ");
-        String fileDir = scanner.nextLine();
-        scanner.close();
+public class Main  {
+    static void main(String[] args) {
+
+        String path = "src/logs/logs.txt";
+
+        Process<String, List<String>> validator = new Validator();
+        Process<List<String>, List<Log>> selector = new Selector();
+        Process<List<Log>, List<Log>> anonymizer = new Anonymizer();
+        Process<List<Log>, String> formatter = new Formatter();
+
+        List<String> validLines = validator.process(path);
+        List<Log> selectedLogs = selector.process(validLines);
+        List<Log> anonymizedLogs = anonymizer.process(selectedLogs);
+        String result = formatter.process(anonymizedLogs);
+
+        System.out.println(result);
 
 
     }
