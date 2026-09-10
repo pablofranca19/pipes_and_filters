@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Anonymizer implements Process<List<Log>, List<Log>> {
 
-    private static final String ALGORITHM = "HmacSHA256";
+    public static final String ALGORITHM = "HmacSHA256";
 
     @Override
     public List<Log> process(List<Log> data) {
@@ -27,7 +27,6 @@ public class Anonymizer implements Process<List<Log>, List<Log>> {
                 throw new RuntimeException(e);
             }
         }
-
         return data;
     }
 
