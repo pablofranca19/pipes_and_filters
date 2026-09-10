@@ -1,6 +1,4 @@
-package filtering;
-
-import model.Log;
+package model;
 
 import java.util.List;
 
