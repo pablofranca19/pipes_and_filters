@@ -2,6 +2,7 @@ package filtering;
 
 import filtering.process.Process;
 import model.Log;
+import model.LogRegistry;
 import tools.jackson.core.StreamWriteFeature;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
