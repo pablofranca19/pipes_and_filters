@@ -11,19 +11,12 @@ import java.util.List;
 // this class needs to receive the list of strings, and transform them into a list of Log objects
 public class Selector implements Process<List<String>, List<Log>> {
 
-    private final List<String> list;
-
-    public Selector(List<String> list) {
-        this.list = list;
-        process(this.list);
-    }
-
-
     @Override
     public List<Log> process(List<String> data) {
-        List<Log> errorLogs = convertToLogObject(data);
+        List<Log> logs = convertToLogObject(data);
+        List<Log> errorLogs = new ArrayList<>();
 
-        for (Log log : errorLogs) {
+        for (Log log : logs) {
             if (log.getStatusCode().startsWith("4") || log.getStatusCode().startsWith("5")) {
                 errorLogs.add(log);
             }
@@ -37,7 +30,7 @@ public class Selector implements Process<List<String>, List<Log>> {
         List<Log> logList = new ArrayList<>();
 
         for (String line : data) {
-            String result = line.replaceAll("[\\-\"]", "");
+            String result = line.replaceAll("[\\-\"\\[\\]]", "");
             formattedLine.add(result);
         }
 
