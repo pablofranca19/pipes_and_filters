@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class SelectorTest {
+class SelectorTest {
 
     @Test
     @DisplayName("Verify if regex formats to create Log object fields")

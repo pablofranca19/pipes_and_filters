@@ -16,7 +16,7 @@ import java.util.Base64;
 
 import static filtering.Anonymizer.ALGORITHM;
 
-public class AnonymizerTest {
+class AnonymizerTest {
 
     @Test
     @DisplayName("Verify if the log ip is being tokenized")

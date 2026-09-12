@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class ValidationTest {
+class ValidationTest {
 
 
     @Test
@@ -30,7 +30,7 @@ public class ValidationTest {
         String path = "src/logs/logs.txt";
         File file = new File(path);
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             assertThat(bufferedReader).isNotNull();
         } catch (FileNotFoundException e) {
             throw new RuntimeException("There's no content in your file path: " + e);

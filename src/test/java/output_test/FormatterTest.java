@@ -39,7 +39,7 @@ class FormatterTest {
     @DisplayName("Verify if it doesn't create a empty json file")
     void theProcessMustNotGenerateAEmptyJsonFile() {
         assertThatThrownBy(() -> {
-            String result = formatter.process(List.of(EMPTY_LOG));
+            formatter.process(List.of(EMPTY_LOG));
         }).isInstanceOf(RuntimeException.class);
 
     }
@@ -50,6 +50,6 @@ class FormatterTest {
 
         String output = formatter.process(List.of(FORMATTED_LOG));
 
-        assertThat("Log registry created, check \"target/output/logs.json\".").isEqualTo(output);
+        assertThat(output).isEqualTo("Log registry created, check \"target/output/logs.json\".");
     }
 }
