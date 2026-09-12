@@ -1,4 +1,4 @@
-package outputTest;
+package output_test;
 
 import filtering.Formatter;
 import model.Log;
