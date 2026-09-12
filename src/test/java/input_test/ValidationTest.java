@@ -1,4 +1,4 @@
-package inputTest;
+package input_test;
 
 import static filtering.Validator.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
