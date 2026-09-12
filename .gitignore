@@ -41,5 +41,6 @@ build/
 
 # Project files
 .env
+.scannerwork
 docker-compose.yml
 sonar-project.properties
