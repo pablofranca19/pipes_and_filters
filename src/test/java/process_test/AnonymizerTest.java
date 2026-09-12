@@ -1,4 +1,4 @@
-package processTest;
+package process_test;
 
 import model.Log;
 import org.junit.jupiter.api.DisplayName;
@@ -22,9 +22,11 @@ class AnonymizerTest {
     @DisplayName("Verify if the log ip is being tokenized")
     void testAnonymizeIp() throws NoSuchAlgorithmException, InvalidKeyException {
 
+        @SuppressWarnings("unchecked")
         Log testLog = new Log("168.0.0.1", "10/Mar/2026:19:09:01", "PATCH", "/api", "HTTP/1.2", "500", "200");
 
         Mac mac = Mac.getInstance(ALGORITHM);
+        @SuppressWarnings("unchecked")
         final String secretKey = "test-key";
         SecretKeySpec keySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), ALGORITHM);
 
