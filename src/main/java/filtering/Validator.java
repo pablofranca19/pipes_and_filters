@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.regex.Pattern;
 
 
 public class Validator implements Process<String, List<String>>  {
@@ -21,7 +21,8 @@ public class Validator implements Process<String, List<String>>  {
     public static final String STATUS_CODE_REGEX = "\\d{3}";
     public static final String BYTE_LENGTH_REGEX = "\\d+";
     // StringBuilder for this
-    private static final String LOG_REGEX = "^" + IP_REGEX + "\\s-\\s-\\s" + "\\[" + DATE_REGEX + "\\]" + "\\s" + "\"" +  HTTP_REQUEST_REGEX + "\\s" + ENDPOINT_REGEX + "\\s" + HTTP_VERSION_REGEX + "\"" + "\\s" + STATUS_CODE_REGEX + "\\s" + BYTE_LENGTH_REGEX + "$";
+    private static final Pattern LOG_REGEX = Pattern.compile("^" + IP_REGEX + "\\s-\\s-\\s" + "\\[" + DATE_REGEX + "\\]" + "\\s" + "\"" +  HTTP_REQUEST_REGEX + "\\s" + ENDPOINT_REGEX + "\\s" + HTTP_VERSION_REGEX + "\"" + "\\s" + STATUS_CODE_REGEX + "\\s" + BYTE_LENGTH_REGEX + "$");
+
 
     @Override
     public List<String> process(String path) {
@@ -31,7 +32,7 @@ public class Validator implements Process<String, List<String>>  {
         try (BufferedReader bufferedReader = new BufferedReader(Files.newBufferedReader(filePath))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                if (line.matches(LOG_REGEX)) {
+                if (line.matches(LOG_REGEX.pattern())) {
                     validatedLogs.add(line);
                 }
             }
