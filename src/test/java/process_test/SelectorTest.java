@@ -1,4 +1,4 @@
-package processTest;
+package process_test;
 
 
 import model.Log;
