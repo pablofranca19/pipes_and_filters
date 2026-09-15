@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 
 import java.io.IOException;
@@ -51,5 +52,21 @@ class FormatterTest {
         String output = formatter.process(List.of(FORMATTED_LOG));
 
         assertThat(output).isEqualTo("Log registry created, check \"target/output/logs.json\".");
+    }
+
+    @Test
+    @DisplayName("This test must throw an exception if any error is present")
+    void throwIOExceptionIfOccur(@TempDir Path tempDir) throws IOException {
+
+        Path blockingFile = tempDir.resolve("output");
+        Files.createFile(blockingFile);
+
+        Path outputPath = blockingFile.resolve("logs.json");
+
+        assertThatExceptionOfType(IOException.class).isThrownBy(() -> {
+            Files.createDirectories(outputPath);
+        }).withMessage(tempDir + "/output/logs.json" +":" + " Not a directory");
+
+
     }
 }
