@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 
@@ -21,8 +23,9 @@ public class Validator implements Process<String, List<String>>  {
     public static final String STATUS_CODE_REGEX = "\\d{3}";
     public static final String BYTE_LENGTH_REGEX = "\\d+";
     // StringBuilder for this
-    private static final Pattern LOG_REGEX = Pattern.compile("^" + IP_REGEX + "\\s-\\s-\\s" + "\\[" + DATE_REGEX + "\\]" + "\\s" + "\"" +  HTTP_REQUEST_REGEX + "\\s" + ENDPOINT_REGEX + "\\s" + HTTP_VERSION_REGEX + "\"" + "\\s" + STATUS_CODE_REGEX + "\\s" + BYTE_LENGTH_REGEX + "$");
+    public static final Pattern LOG_REGEX = Pattern.compile("^" + IP_REGEX + "\\s-\\s-\\s" + "\\[" + DATE_REGEX + "\\]" + "\\s" + "\"" +  HTTP_REQUEST_REGEX + "\\s" + ENDPOINT_REGEX + "\\s" + HTTP_VERSION_REGEX + "\"" + "\\s" + STATUS_CODE_REGEX + "\\s" + BYTE_LENGTH_REGEX + "$");
 
+    private static final Logger LOG = Logger.getLogger(Validator.class.getName());
 
     @Override
     public List<String> process(String path) {
@@ -37,7 +40,7 @@ public class Validator implements Process<String, List<String>>  {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading the file: " + e.getMessage());
+            LOG.log(Level.WARNING,"Error reading the file: {0}", e.getMessage());
         }
         return validatedLogs;
     }
