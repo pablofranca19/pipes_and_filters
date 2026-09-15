@@ -20,8 +20,8 @@ public class Main  {
     // mutes an issue
     @SuppressWarnings("unused")
     public static void main(String[] args) {
-        run();
         logger.log(Level.INFO, "Program initialized.");
+        run();
     }
 
 
