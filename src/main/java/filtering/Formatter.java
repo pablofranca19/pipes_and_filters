@@ -16,8 +16,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Formatter implements Process<List<Log>, String> {
+
+    private static final Logger LOG = Logger.getLogger(Formatter.class.getName());
 
     @Override
     public String process(List<Log> data) {
@@ -41,10 +45,14 @@ public class Formatter implements Process<List<Log>, String> {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(bufferedWriter, new LogRegistry(data));
 
         } catch (ParseException e) {
-            System.out.println("Error parsing the logs.");
-            throw new RuntimeException("Couldn't parse the date, check if the expected field is correct");
+            LOG.log(Level.WARNING,"Error parsing the logs.");
+            try {
+                throw new ParseException("Couldn't parse the date, check if the expected field is correct", e.getErrorOffset());
+            } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
         } catch (IOException e) {
-            System.out.println("Error writing to \"target/output/logs.json\" path.");
+            LOG.log(Level.SEVERE,"Error writing to \"target/output/logs.json\" path.");
             throw new RuntimeException(e);
         }
 
