@@ -24,10 +24,7 @@ public class Main  {
         run();
     }
 
-
-
-
-    private static void run () {
+    private static void run() {
         Process<String, List<String>> validator = new Validator();
         Process<List<String>, List<Log>> selector = new Selector();
         Process<List<Log>, List<Log>> anonymizer = new Anonymizer();
