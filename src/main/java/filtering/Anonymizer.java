@@ -11,10 +11,13 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Anonymizer implements Process<List<Log>, List<Log>> {
 
-    public static final String ALGORITHM = "HmacSHA256";
+    private static final String ALGORITHM = "HmacSHA256";
+    private static final Logger LOG = Logger.getLogger(Anonymizer.class.getName());
 
     @Override
     public List<Log> process(List<Log> data) {
@@ -24,7 +27,7 @@ public class Anonymizer implements Process<List<Log>, List<Log>> {
                 String anonymizedIp = anonymizeLogIp(log.getIp());
                 log.setIp(anonymizedIp);
             } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-                System.out.println(e.getMessage());
+                LOG.log(Level.WARNING,e.getMessage());
                 throw new RuntimeException(e);
             }
         }
