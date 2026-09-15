@@ -1,6 +1,7 @@
 package filtering;
 
 import filtering.process.Process;
+import io.github.cdimascio.dotenv.Dotenv;
 import model.Log;
 
 import javax.crypto.Mac;
@@ -33,7 +34,9 @@ public class Anonymizer implements Process<List<Log>, List<Log>> {
 
     public String anonymizeLogIp(String ip) throws NoSuchAlgorithmException, InvalidKeyException {
 
-            final String secretKey = "is-it-necessary-any-key";
+            Dotenv.configure().systemProperties().load();
+
+            final String secretKey = System.getenv("SECRET_KEY");
 
             Mac mac = Mac.getInstance(ALGORITHM);
             SecretKeySpec keySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), ALGORITHM);
