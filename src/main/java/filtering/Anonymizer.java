@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class Anonymizer implements Process<List<Log>, List<Log>> {
 
-    private static final String ALGORITHM = "HmacSHA256";
+    public static final String ALGORITHM = "HmacSHA256";
     private static final Logger LOG = Logger.getLogger(Anonymizer.class.getName());
 
     @Override
