@@ -33,7 +33,7 @@ jobs:
       - name: Run docker compose
         uses: hoverkraft-tech/compose-action@ee6af68587292d72db67743171809c19787df4c9 # v3.1.0
         with:
-          compose-file: "../../docker-compose.yml"
+          compose-file: "./docker-compose.yml"
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
