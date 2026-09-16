@@ -35,6 +35,9 @@ jobs:
         with:
           cwd: ${{ github.workspace }}
           compose-file: "./docker-compose.yml"
+      - name: Wait for SonarQube to be ready
+        run: |
+          timeout 90 bash -c 'until curl -sf http://localhost:9000/api/system/status | grep -q "\"status\":\"UP\""; do sleep 3; done'
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
