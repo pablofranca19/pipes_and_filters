@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build
     runs-on: self-hosted
+    environment: sonar_environment
     steps:
       - uses: actions/checkout@v6
         with:
@@ -42,7 +43,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          HMAC_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: | 
+            mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=pipes-ci \
+            -Dsonar.projectName='pipes-ci'
 
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@master
