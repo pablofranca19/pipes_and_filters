@@ -17,7 +17,6 @@ public class Main  {
 
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
-    //testing ci
     // mutes an issue
     @SuppressWarnings("unused")
     public static void main(String[] args) {
