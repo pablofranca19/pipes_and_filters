@@ -37,12 +37,12 @@ public class Anonymizer implements Process<List<Log>, List<Log>> {
 
     public String anonymizeLogIp(String ip) throws NoSuchAlgorithmException, InvalidKeyException {
 
-            Dotenv.configure().systemProperties().load();
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-            final String secretKey = System.getenv("SECRET_KEY");
+        String hmacSecret = System.getenv("SECRET_KEY") != null ? System.getenv("SECRET_KEY") : dotenv.get("SECRET_KEY");
 
             Mac mac = Mac.getInstance(ALGORITHM);
-            SecretKeySpec keySpec = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), ALGORITHM);
+            SecretKeySpec keySpec = new SecretKeySpec(hmacSecret.getBytes(StandardCharsets.UTF_8), ALGORITHM);
             mac.init(keySpec);
 
         byte[] hmac = mac.doFinal(ip.getBytes(StandardCharsets.UTF_8));
