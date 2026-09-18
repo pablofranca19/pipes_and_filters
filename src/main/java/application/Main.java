@@ -35,8 +35,6 @@ public class Main  {
         String path = scanner.nextLine();
         scanner.close();
 
-        logger.log(Level.INFO, "File logging initialized");
-
         List<String> validLines = validator.process(path);
         List<Log> selectedLogs = selector.process(validLines);
         List<Log> anonymizedLogs = anonymizer.process(selectedLogs);

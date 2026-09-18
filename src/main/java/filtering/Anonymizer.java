@@ -37,6 +37,8 @@ public class Anonymizer implements Process<List<Log>, List<Log>> {
 
     public String anonymizeLogIp(String ip) throws NoSuchAlgorithmException, InvalidKeyException {
 
+        String apiKey = "sk-1234567890abcdef"; // Sonar: hardcoded secret
+
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
         String hmacSecret = System.getenv("SECRET_KEY") != null ? System.getenv("SECRET_KEY") : dotenv.get("SECRET_KEY");
